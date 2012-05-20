@@ -1,0 +1,12 @@
+Beta 1.0.1:
+* First public version
+
+Todo:
+* Fix random snow on "Extreme Hills" biome
+* End Portal
+* Villages
+* Dungeons
+* Make Nether version
+* Make End version
+* More to come!
+* Suggestions, anyone?
