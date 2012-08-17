@@ -1,6 +1,6 @@
-name: Biome Flatlands
+name: BiomeFlatlands
 main: com.gmail.nixillumbreon.BiomeFlatlands.BiomeFlatlands
-version: Beta 1.0 build 1
+version: Beta 1.1.0
 author: NixillUmbreon
 description: A plugin that generates biome-compliant flat worlds.
 load: STARTUP

@@ -107,13 +107,15 @@ public class ChunkPop extends BlockPopulator {
 			Biome b = source.getBlock(x, 0, z).getBiome();
 			Block bl;
 			if ((b == Biome.DESERT || b == Biome.DESERT_HILLS) && (trial < 7)) {
-				if (b == Biome.DESERT_HILLS) bl = world.getBlockAt(wX, 5, wZ);
-				else bl = world.getBlockAt(wX, 4, wZ);
+			  int yAt;
+				if (b == Biome.DESERT_HILLS) yAt = 5;
+				else yAt = 4;
+				bl = world.getBlockAt(wX, yAt, wZ);
 				if (bl.getType() == Material.AIR) {
-					if (world.getBlockAt(wX+1, 4, wZ).getType() == Material.AIR
-						&& world.getBlockAt(wX, 4, wZ+1).getType() == Material.AIR
-						&& world.getBlockAt(wX-1, 4, wZ).getType() == Material.AIR
-						&& world.getBlockAt(wX, 4, wZ-1).getType() == Material.AIR) {
+					if (world.getBlockAt(wX+1, yAt, wZ).getType() == Material.AIR
+						&& world.getBlockAt(wX, yAt, wZ+1).getType() == Material.AIR
+						&& world.getBlockAt(wX-1, yAt, wZ).getType() == Material.AIR
+						&& world.getBlockAt(wX, yAt, wZ-1).getType() == Material.AIR) {
 						if (index == 0) {
 							bl.setType(Material.DEAD_BUSH);
 						} else {
@@ -146,7 +148,7 @@ public class ChunkPop extends BlockPopulator {
 							bl.getRelative(BlockFace.DOWN).setType(Material.STONE);
 						} else {
 							bl.getRelative(BlockFace.DOWN).setType(Material.GRASS);
-							bl.setType(Material.SNOW);
+							if (b != Biome.EXTREME_HILLS) { bl.setType(Material.SNOW); }
 						}
 					}
 				}
@@ -236,10 +238,15 @@ public class ChunkPop extends BlockPopulator {
 				if (b == Biome.TAIGA_HILLS) bl = world.getBlockAt(wX, 5, wZ);
 				else bl = world.getBlockAt(wX, 4, wZ);
 				if (bl.getType() == Material.SNOW) {
+				  bl.setType(Material.AIR);
+				  boolean tsuccess;
 					if (index < 50) {
-						world.generateTree(bl.getLocation(), TreeType.REDWOOD);
+						tsuccess = world.generateTree(bl.getLocation(), TreeType.REDWOOD);
 					} else {
-						world.generateTree(bl.getLocation(), TreeType.TALL_REDWOOD);
+						tsuccess = world.generateTree(bl.getLocation(), TreeType.TALL_REDWOOD);
+					}
+					if (!tsuccess) {
+					  bl.setType(Material.SNOW);
 					}
 				}
 			} else { if ((b == Biome.SWAMPLAND) && (trial < 10)) {
@@ -276,7 +283,8 @@ public class ChunkPop extends BlockPopulator {
 		int liquidX = random.nextInt(16) + wx;
 		int liquidZ = random.nextInt(16) + wz;
 		Block bl = world.getBlockAt(liquidX, 1, liquidZ);
-		if (bl.getBiome() != Biome.OCEAN && bl.getBiome() != Biome.FROZEN_OCEAN) {
+		if (bl.getBiome() != Biome.OCEAN && bl.getBiome() != Biome.FROZEN_OCEAN && bl.getBiome() != Biome.BEACH
+		  && bl.getBiome() != Biome.RIVER && bl.getBiome() != Biome.FROZEN_RIVER) {
 			if (random.nextBoolean()) {
 				if (random.nextBoolean()) bl.setType(Material.STATIONARY_LAVA);
 				else bl.setType(Material.STATIONARY_WATER);

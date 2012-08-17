@@ -1,3 +1,8 @@
+Beta 1.1.0:
+* Fix random snow on "Extreme Hills" biome
+* Fix lack of trees in Taiga
+* Fix lack of cacti in Desert Hill
+
 Beta 1.0.1:
 * First public version
 
